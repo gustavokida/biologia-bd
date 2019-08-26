@@ -594,7 +594,7 @@
       <attributes/>
       <replacevars>N</replacevars>
       <filename>${Internal.Entry.Current.Directory}/env.properties</filename>
-      <file_variable_type>JVM</file_variable_type>
+      <file_variable_type>CURRENT_JOB</file_variable_type>
       <fields>
       </fields>
       <parallel>N</parallel>

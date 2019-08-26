@@ -481,7 +481,7 @@
     </hop>
     <hop>
       <from>Unique rows (HashSet)</from>
-      <to>saida-tribo</to>
+      <to>Insert / update</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -554,8 +554,8 @@ FROM "asenjo(old)".genera
     </GUI>
   </step>
   <step>
-    <name>saida-tribo</name>
-    <type>TableOutput</type>
+    <name>Insert / update</name>
+    <type>InsertUpdate</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -565,28 +565,23 @@ FROM "asenjo(old)".genera
       <schema_name/>
     </partitioning>
     <connection>saida</connection>
-    <schema>public</schema>
-    <table>tribos</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>nome</column_name>
-        <stream_name>tribu</stream_name>
-      </field>
-    </fields>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>public</schema>
+      <table>tribos</table>
+      <key>
+        <name>tribu</name>
+        <field>nome</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>nome</name>
+        <rename>tribu</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
