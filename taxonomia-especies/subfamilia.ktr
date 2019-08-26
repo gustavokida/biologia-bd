@@ -430,7 +430,7 @@
     <created_date>2019/08/25 00:20:10.079</created_date>
     <modified_user>-</modified_user>
     <modified_date>2019/08/25 00:20:10.079</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -546,42 +546,8 @@
     </hop>
   </order>
   <step>
-    <name>antigo-subfam</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>antigo-subfam</connection>
-    <sql>SELECT subfamily
-FROM "List Subfamily";
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>256</xloc>
-      <yloc>464</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>antigo-genera</name>
-    <type>TableInput</type>
+    <name>Merge rows (diff)</name>
+    <type>MergeRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -590,15 +556,15 @@ FROM "List Subfamily";
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>antigo-subfam</connection>
-    <sql>SELECT subfamily
-FROM genera;
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <keys>
+    </keys>
+    <values>
+    </values>
+    <flag_field>flagfield</flag_field>
+    <reference>Sort rows</reference>
+    <compare>Sort rows 2</compare>
+    <compare>
+    </compare>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -608,14 +574,14 @@ FROM genera;
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>528</xloc>
       <yloc>192</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>antigo-staphys2</name>
-    <type>TableInput</type>
+    <name>Merge rows (diff) 2</name>
+    <type>MergeRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -624,16 +590,15 @@ FROM genera;
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>antigo-subfam</connection>
-    <sql>SELECT subfamily
-FROM "Record of Staphys 2";
-
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <keys>
+    </keys>
+    <values>
+    </values>
+    <flag_field>flagfield</flag_field>
+    <reference>Sort rows 3</reference>
+    <compare>Merge rows (diff)</compare>
+    <compare>
+    </compare>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -643,14 +608,14 @@ FROM "Record of Staphys 2";
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>624</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>antigo-especies-staphys</name>
-    <type>TableInput</type>
+    <name>Merge rows (diff) 3</name>
+    <type>MergeRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -659,15 +624,15 @@ FROM "Record of Staphys 2";
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>antigo-subfam</connection>
-    <sql>SELECT subfam
-FROM "Especies de Staphylinidos";
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <keys>
+    </keys>
+    <values>
+    </values>
+    <flag_field>flagfield</flag_field>
+    <reference>Sort rows 4</reference>
+    <compare>Merge rows (diff) 2</compare>
+    <compare>
+    </compare>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -677,14 +642,14 @@ FROM "Especies de Staphylinidos";
       </output>
     </remotesteps>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>720</xloc>
       <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>novo-subfamilias</name>
-    <type>TableOutput</type>
+    <name>Merge rows (diff) 4</name>
+    <type>MergeRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -693,25 +658,15 @@ FROM "Especies de Staphylinidos";
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>novo-subfam</connection>
-    <schema/>
-    <table>subfamilias</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-    </fields>
+    <keys>
+    </keys>
+    <values>
+    </values>
+    <flag_field>flagfield</flag_field>
+    <reference>Sort rows 5</reference>
+    <compare>Merge rows (diff) 3</compare>
+    <compare>
+    </compare>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -721,43 +676,8 @@ FROM "Especies de Staphylinidos";
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1024</xloc>
+      <xloc>816</xloc>
       <yloc>464</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>novo-subfamilias-desatualizado</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>novo-subfam</connection>
-    <sql>SELECT
-  nome
-FROM subfamilias
-</sql>
-    <limit>0</limit>
-    <lookup>Merge join</lookup>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>256</xloc>
-      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -940,8 +860,8 @@ FROM subfamilias
     </GUI>
   </step>
   <step>
-    <name>Merge rows (diff)</name>
-    <type>MergeRows</type>
+    <name>antigo-especies-staphys</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -950,15 +870,15 @@ FROM subfamilias
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <keys>
-    </keys>
-    <values>
-    </values>
-    <flag_field>flagfield</flag_field>
-    <reference>Sort rows</reference>
-    <compare>Sort rows 2</compare>
-    <compare>
-    </compare>
+    <connection>antigo-subfam</connection>
+    <sql>SELECT subfam
+FROM "Especies de Staphylinidos";
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -968,82 +888,14 @@ FROM subfamilias
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>192</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Merge rows (diff) 2</name>
-    <type>MergeRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <keys>
-    </keys>
-    <values>
-    </values>
-    <flag_field>flagfield</flag_field>
-    <reference>Sort rows 3</reference>
-    <compare>Merge rows (diff)</compare>
-    <compare>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>624</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Merge rows (diff) 3</name>
-    <type>MergeRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <keys>
-    </keys>
-    <values>
-    </values>
-    <flag_field>flagfield</flag_field>
-    <reference>Sort rows 4</reference>
-    <compare>Merge rows (diff) 2</compare>
-    <compare>
-    </compare>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>720</xloc>
+      <xloc>256</xloc>
       <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Merge rows (diff) 4</name>
-    <type>MergeRows</type>
+    <name>antigo-genera</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -1052,15 +904,16 @@ FROM subfamilias
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <keys>
-    </keys>
-    <values>
-    </values>
-    <flag_field>flagfield</flag_field>
-    <reference>Sort rows 5</reference>
-    <compare>Merge rows (diff) 3</compare>
-    <compare>
-    </compare>
+    <connection>antigo-subfam</connection>
+    <sql>SELECT 
+ subfamily
+FROM genera;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1070,8 +923,156 @@ FROM subfamilias
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
+      <xloc>256</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>antigo-staphys2</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>antigo-subfam</connection>
+    <sql>SELECT subfamily
+FROM "Record of Staphys 2";
+
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>antigo-subfam</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>antigo-subfam</connection>
+    <sql>SELECT subfamily
+FROM "List Subfamily";
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
       <yloc>464</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>novo-subfamilias</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>novo-subfam</connection>
+    <schema/>
+    <table>subfamilias</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>N</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1024</xloc>
+      <yloc>464</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>novo-subfamilias-desatualizado</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>novo-subfam</connection>
+    <sql>SELECT
+  nome
+FROM subfamilias
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>256</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

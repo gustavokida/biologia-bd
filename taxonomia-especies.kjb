@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>jobs-taxonomia</name>
+  <name>taxonomia-especies</name>
   <description/>
   <extended_description/>
   <job_version/>
+  <job_status>0</job_status>
   <directory>/</directory>
   <created_user>-</created_user>
   <created_date>2019/08/24 22:54:31.985</created_date>
@@ -293,7 +294,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>{Internal.Entry.Current.Directory}/${Internal.Job.Name}/Especies.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -331,7 +332,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>{Internal.Entry.Current.Directory}/${Internal.Job.Name}/Subgeneros.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -369,7 +370,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>{Internal.Entry.Current.Directory}/${Internal.Job.Name}/Generos.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -407,7 +408,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>{Internal.Entry.Current.Directory}/${Internal.Job.Name}/Tribos.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -445,7 +446,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>{Internal.Entry.Current.Directory}/${Internal.Job.Name}/Tribos.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -483,7 +484,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>{Internal.Entry.Current.Directory}/${Internal.Job.Name}/Supertribos.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -521,7 +522,7 @@
       <attributes/>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename/>
+      <filename>{Internal.Entry.Current.Directory}/${Internal.Job.Name}/Subfamilias.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -586,8 +587,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>832</xloc>
-      <yloc>336</yloc>
+      <xloc>960</xloc>
+      <yloc>128</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -760,8 +761,37 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>672</xloc>
-      <yloc>224</yloc>
+      <xloc>800</xloc>
+      <yloc>208</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <attributes/>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>944</xloc>
+      <yloc>448</yloc>
+      <attributes_kjc/>
+    </entry>
+    <entry>
+      <name>Set variables</name>
+      <description/>
+      <type>SET_VARIABLES</type>
+      <attributes/>
+      <replacevars>Y</replacevars>
+      <filename>${Internal.Entry.Current.Directory}/env.properties</filename>
+      <file_variable_type>JVM</file_variable_type>
+      <fields>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>336</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -821,24 +851,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>familias</from>
-      <to>subfamilias</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>ordens</from>
-      <to>familias</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>classe</from>
       <to>ordens</to>
       <from_nr>0</from_nr>
@@ -866,17 +878,35 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Start</from>
-      <to>reinos</to>
+      <from>especies</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>ordens</from>
+      <to>familias</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Set variables</from>
+      <to>subfamilias</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Start</from>
-      <to>subfamilias</to>
+      <to>Set variables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
