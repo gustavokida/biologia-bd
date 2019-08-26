@@ -430,7 +430,7 @@
     <created_date>2019/08/26 01:04:21.637</created_date>
     <modified_user>-</modified_user>
     <modified_date>2019/08/26 01:04:21.637</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -486,6 +486,39 @@
     </hop>
   </order>
   <step>
+    <name>Unique rows (HashSet)</name>
+    <type>UniqueRowsByHashSet</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <store_values>N</store_values>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <fields>
+      <field>
+        <name>nontaxa</name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>432</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>nome</name>
     <type>TableInput</type>
     <description/>
@@ -500,7 +533,7 @@
     <sql>SELECT
  nontaxa
 
-FROM ${DB_ENTRADA_SCHEMA}."Especies de Staphylinidos"
+FROM "asenjo(old)"."Especies de Staphylinidos"
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -533,7 +566,7 @@ FROM ${DB_ENTRADA_SCHEMA}."Especies de Staphylinidos"
       <schema_name/>
     </partitioning>
     <connection>saida</connection>
-    <schema>${DB_SAIDA_SCHEMA}</schema>
+    <schema>public</schema>
     <table>especies</table>
     <commit>1000</commit>
     <truncate>N</truncate>
@@ -565,39 +598,6 @@ FROM ${DB_ENTRADA_SCHEMA}."Especies de Staphylinidos"
     </remotesteps>
     <GUI>
       <xloc>576</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Unique rows (HashSet)</name>
-    <type>UniqueRowsByHashSet</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <store_values>N</store_values>
-    <reject_duplicate_row>N</reject_duplicate_row>
-    <error_description/>
-    <fields>
-      <field>
-        <name>nontaxa</name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>432</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
