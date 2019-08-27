@@ -526,6 +526,49 @@
     </hop>
   </order>
   <step>
+    <name>Insert / update</name>
+    <type>InsertUpdate</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>saida</connection>
+    <commit>100</commit>
+    <update_bypassed>N</update_bypassed>
+    <lookup>
+      <schema>public</schema>
+      <table>subfamilias</table>
+      <key>
+        <name>subfamily</name>
+        <field>nome</field>
+        <condition>= ~NULL</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>nome</name>
+        <rename>subfamily</rename>
+        <update>Y</update>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Select values</name>
     <type>SelectValues</type>
     <description/>
@@ -899,49 +942,6 @@ FROM "asenjo(old)"."List Subfamily"
     <GUI>
       <xloc>320</xloc>
       <yloc>160</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Insert / update</name>
-    <type>InsertUpdate</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>saida</connection>
-    <commit>100</commit>
-    <update_bypassed>N</update_bypassed>
-    <lookup>
-      <schema>public</schema>
-      <table>subfamilias</table>
-      <key>
-        <name>subfamily</name>
-        <field>nome</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>nome</name>
-        <rename>subfamily</rename>
-        <update>Y</update>
-      </value>
-    </lookup>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>880</xloc>
-      <yloc>240</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
