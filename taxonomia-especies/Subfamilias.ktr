@@ -540,7 +540,7 @@
     <commit>100</commit>
     <update_bypassed>N</update_bypassed>
     <lookup>
-      <schema>public</schema>
+      <schema>${DB_SAIDA_SCHEMA}</schema>
       <table>subfamilias</table>
       <key>
         <name>subfamily</name>
@@ -816,7 +816,7 @@
     <sql>SELECT
   subfam
 
-FROM "asenjo(old)"."Especies de Staphylinidos"
+FROM ${DB_ENTRADA_SCHEMA}."Especies de Staphylinidos"
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -852,7 +852,7 @@ FROM "asenjo(old)"."Especies de Staphylinidos"
     <sql>SELECT
   subfamily
 
-FROM "asenjo(old)".genera
+FROM ${DB_ENTRADA_SCHEMA}.genera
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -888,7 +888,7 @@ FROM "asenjo(old)".genera
     <sql>SELECT
  subfamily
 
-FROM "asenjo(old)"."Record of Staphys 2"
+FROM ${DB_ENTRADA_SCHEMA}."Record of Staphys 2"
 </sql>
     <limit>0</limit>
     <lookup/>
@@ -924,7 +924,7 @@ FROM "asenjo(old)"."Record of Staphys 2"
     <sql>SELECT
  subfamily
 
-FROM "asenjo(old)"."List Subfamily"
+FROM ${DB_ENTRADA_SCHEMA}."List Subfamily"
 </sql>
     <limit>0</limit>
     <lookup/>
