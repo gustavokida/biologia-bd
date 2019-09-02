@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Sinonimos</name>
+    <name>Sinonimos-id</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -533,8 +534,8 @@
       <schema>${DB_SAIDA_SCHEMA}</schema>
       <table>especies</table>
       <key>
-        <name>id_especie</name>
-        <field>id_especie</field>
+        <name>nome</name>
+        <field>nome</field>
         <condition>= ~NULL</condition>
         <name2/>
       </key>
@@ -553,7 +554,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
+      <xloc>816</xloc>
       <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
@@ -573,7 +574,7 @@
     <step1>Unique rows (HashSet)</step1>
     <step2>Sort rows 2</step2>
     <keys_1>
-      <key>Nombre Valido</key>
+      <key>nome_parent</key>
     </keys_1>
     <keys_2>
       <key>nome</key>
@@ -612,15 +613,7 @@
     <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>STAPHY of Species</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-      <field>
-        <name>Nombre Valido</name>
+        <name>nome_especie</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <collator_enabled>N</collator_enabled>
@@ -658,10 +651,7 @@
     <error_description/>
     <fields>
       <field>
-        <name>STAPHY of Species</name>
-      </field>
-      <field>
-        <name>Nombre Valido</name>
+        <name>nome_especie</name>
       </field>
     </fields>
     <attributes/>
@@ -691,8 +681,8 @@
     </partitioning>
     <connection>entrada</connection>
     <sql>SELECT
- "STAPHY of Species"
-, "Nombre Valido"
+ "STAPHY of Species" as nome_especie
+, "Nombre Valido" as nome_parent
 FROM ${DB_ENTRADA_SCHEMA}."Especies de Staphylinidos"
 </sql>
     <limit>0</limit>
@@ -726,9 +716,11 @@ FROM ${DB_ENTRADA_SCHEMA}."Especies de Staphylinidos"
       <schema_name/>
     </partitioning>
     <connection>saida</connection>
-    <sql>SELECT id_especie,
- nome
-FROM ${DB_SAIDA_SCHEMA}.especies;</sql>
+    <sql>SELECT
+  id_especie
+, nome
+FROM ${DB_SAIDA_SCHEMA}.especies
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -775,14 +767,6 @@ FROM ${DB_SAIDA_SCHEMA}.especies;</sql>
         <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
-      <field>
-        <name>nome</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -816,7 +800,7 @@ FROM ${DB_SAIDA_SCHEMA}.especies;</sql>
       <key>nome</key>
     </keys_1>
     <keys_2>
-      <key>STAPHY of Species</key>
+      <key>nome_especie</key>
     </keys_2>
     <attributes/>
     <cluster_schema/>
