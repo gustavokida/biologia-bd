@@ -6,6 +6,7 @@
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -430,7 +431,7 @@
     <created_date>2019/09/01 19:55:22.650</created_date>
     <modified_user>-</modified_user>
     <modified_date>2019/09/01 19:55:22.650</modified_date>
-    <key_for_session_key/>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -456,73 +457,31 @@
   </connection>
   <order>
     <hop>
-      <from>e_sinonimo</from>
-      <to>Filter rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows</from>
-      <to>Set field value to a constant</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows</from>
-      <to>Set field value to a constant 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Set field value to a constant</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Set field value to a constant 2</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values</from>
+      <from>Merge rows (diff)</from>
       <to>Insert / update</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>e_sinonimo_false</from>
+      <to>Database lookup</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>e_sinonimo_true</from>
+      <to>Database lookup 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup</from>
+      <to>Merge rows (diff)</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Database lookup 2</from>
+      <to>Merge rows (diff)</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <step>
-    <name>e_sinonimo</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>saida</connection>
-    <sql>SELECT
-  id_especie,
-  e_sinonimo,
-  parent_id_especie
-FROM "public".especies
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>320</xloc>
-      <yloc>288</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>Insert / update</name>
     <type>InsertUpdate</type>
@@ -543,12 +502,12 @@ FROM "public".especies
       <key>
         <name>id_especie</name>
         <field>id_especie</field>
-        <condition>=</condition>
+        <condition>= ~NULL</condition>
         <name2/>
       </key>
       <value>
         <name>e_sinonimo</name>
-        <rename>e_sinonimo</rename>
+        <rename>result</rename>
         <update>Y</update>
       </value>
     </lookup>
@@ -561,14 +520,52 @@ FROM "public".especies
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>704</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
+    <name>e_sinonimo_false</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>saida</connection>
+    <sql>SELECT
+  id_especie,
+  e_sinonimo,
+  parent_id_especie
+FROM "public".especies
+WHERE especies.parent_id_especie IS NULL
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>e_sinonimo_true</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -577,15 +574,54 @@ FROM "public".especies
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Set field value to a constant</send_true_to>
-    <send_false_to>Set field value to a constant 2</send_false_to>
+    <connection>saida</connection>
+    <sql>SELECT
+  id_especie,
+  e_sinonimo,
+  parent_id_especie
+FROM "public".especies
+WHERE especies.parent_id_especie IS NOT NULL
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Merge rows (diff)</name>
+    <type>MergeRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <keys>
+      <key>id_especie</key>
+    </keys>
+    <values>
+      <value>id_especie</value>
+    </values>
+    <flag_field>flagfield</flag_field>
+    <reference>Database lookup</reference>
+    <compare>Database lookup 2</compare>
     <compare>
-      <condition>
-        <negated>N</negated>
-        <leftvalue>parent_id_especie</leftvalue>
-        <function>IS NOT NULL</function>
-        <rightvalue>parent_id_especie</rightvalue>
-      </condition>
     </compare>
     <attributes/>
     <cluster_schema/>
@@ -596,14 +632,14 @@ FROM "public".especies
       </output>
     </remotesteps>
     <GUI>
-      <xloc>448</xloc>
+      <xloc>576</xloc>
       <yloc>288</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Set field value to a constant</name>
-    <type>SetValueConstant</type>
+    <name>Database lookup</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -612,106 +648,29 @@ FROM "public".especies
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <usevar>N</usevar>
-    <fields>
-      <field>
-        <name>e_sinonimo</name>
-        <value>t</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>560</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Set field value to a constant 2</name>
-    <type>SetValueConstant</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <usevar>N</usevar>
-    <fields>
-      <field>
-        <name>e_sinonimo</name>
-        <value>f</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>560</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
+    <connection>saida</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>especies</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
         <name>id_especie</name>
-        <rename/>
-      </field>
-      <field>
+        <field>id_especie</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
         <name>e_sinonimo</name>
-        <rename/>
-      </field>
-      <field>
-        <name>parent_id_especie</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>e_sinonimo</name>
-        <rename>e_sinonimo</rename>
-        <type>String</type>
-        <length>-2</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
+        <rename>result</rename>
+        <default>'f'</default>
+        <type>Boolean</type>
+      </value>
+    </lookup>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -721,8 +680,56 @@ FROM "public".especies
       </output>
     </remotesteps>
     <GUI>
-      <xloc>720</xloc>
-      <yloc>304</yloc>
+      <xloc>416</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Database lookup 2</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>saida</connection>
+    <cache>N</cache>
+    <cache_load_all>N</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema>public</schema>
+      <table>especies</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>id_especie</name>
+        <field>id_especie</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>e_sinonimo</name>
+        <rename>result</rename>
+        <default>'t'</default>
+        <type>Boolean</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>368</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
